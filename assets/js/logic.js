@@ -8,6 +8,18 @@ var timeLeft = 60;
 var timeInterval;
 var questionTitle = document.querySelector("#question-title");
 var choicesDiv = document.querySelector("#choices");
+var feedback = document.querySelector("#feedback");
+var initials = document.querySelector("#initials");
+var submitBtn = document.querySelector("#submit");
+var highscores = document.querySelector("#highscores");
+var clearBtn = document.querySelector("#clear");
+var goBackBtn = document.querySelector("#go-back");
+var viewHighscores = document.querySelector("#view-highscores");
+
+// audio for correct answer
+var correctAudio = new Audio("assets/sfx/correct.wav");
+// audio for wrong answer
+var wrongAudio = new Audio("assets/sfx/incorrect.wav");
 
 // what happens when the start button is clicked
 startBtn.addEventListener("click", function () {
@@ -59,11 +71,19 @@ function answerClick (){
     if (this.value !== quizQuestions[indexQues].correctAnswer){
         timeLeft -= 5;
         timer.textContent = timeLeft;
-        //alert("Wrong!");
-        
-
+        wrongAudio.play();
+        feedback.textContent = "Wrong!";
+        feedback.setAttribute("class", "feedback");
+        setTimeout(function(){
+            feedback.setAttribute("class", "feedback hide");
+        }, 1000);
     }else{
-        //alert("Correct!");
+        correctAudio.play();
+        feedback.textContent = "Correct!";
+        feedback.setAttribute("class", "feedback");
+        setTimeout(function(){
+            feedback.setAttribute("class", "feedback hide");
+        }, 1000);
     }
     indexQues++;
     if (indexQues === quizQuestions.length){
@@ -72,6 +92,8 @@ function answerClick (){
         displayQues();
     }
 }
+
+
 
 // function to display highscores
 function displayHighscores (){
@@ -83,8 +105,49 @@ function displayHighscores (){
         olEl.appendChild(liTag);
     });
 
-
 }
+
+// function to clear highscores
+function clearHighscores (){
+    window.localStorage.removeItem("highscores");
+    window.location.reload();
+}
+
+// function to go back to start screen
+function goBack (){
+    window.location.reload();
+}
+
+// function to view highscores
+function viewHighscores (){
+    var highscores = document.querySelector("#highscores");
+    highscores.classList.remove("hide");
+    startScrn.classList.add("hide");
+    questionScrn.classList.add("hide");
+    displayHighscores();
+}
+
+// function to save highscores
+function saveHighscores (){
+    var initials = document.querySelector("#initials").value.trim();
+    if (initials !== ""){
+        var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
+        var newScore = {
+            score: timeLeft,
+            initials: initials
+        };
+        highscores.push(newScore);
+        window.localStorage.setItem("highscores", JSON.stringify(highscores));
+        window.location.href = "highscores.html";
+    }
+}
+
+// event listeners for buttons
+// submitBtn.addEventListener("click", saveHighscores);
+// clearBtn.addEventListener("click", clearHighscores);
+
+// goBackBtn.addEventListener("click", goBack);
+// viewHighscores.addEventListener("click", viewHighscores);
 
 
 // Questions contain buttons for each answer.

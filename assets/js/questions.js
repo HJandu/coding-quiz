@@ -12,7 +12,7 @@ const quizQuestions = [
     {
         question: "The condition in an if / else statement is enclosed within ____.",
         choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
-        corectAnswer: "parentheses"
+        correctAnswer: "parentheses"
     },
     {
         question: "String values must be enclosed within ____ when being assigned to variables.",
