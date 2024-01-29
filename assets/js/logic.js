@@ -69,7 +69,7 @@ function displayQues (){
 // function to check if answer is correct
 function answerClick (){
     if (this.value !== quizQuestions[indexQues].correctAnswer){
-        timeLeft -= 5;
+        timeLeft -= 10;
         timer.textContent = timeLeft;
         wrongAudio.play();
         feedback.textContent = "Wrong! 5 seconds deducted from timer.";
