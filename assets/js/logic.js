@@ -15,7 +15,6 @@ var submitBtn = document.querySelector("#submit");
 var highscores = document.querySelector("#highscores");
 var clearBtn = document.querySelector("#clear");
 var goBackBtn = document.querySelector("#go-back");
-var viewHighscores = document.querySelector("#view-highscores");
 var endScreen = document.querySelector("#end-screen");
 var finalScore = document.querySelector("#final-score");
 
@@ -44,7 +43,7 @@ function startTime ( ){
         if (timeLeft <= 0){
             clearInterval(timeInterval);
             timer.textContent = 0;
-            leaderBoard();
+            endQuiz();
         }
     }, 1000);
 
@@ -73,7 +72,7 @@ function answerClick (){
         timeLeft -= 5;
         timer.textContent = timeLeft;
         wrongAudio.play();
-        feedback.textContent = "Wrong!";
+        feedback.textContent = "Wrong! 5 seconds deducted from timer.";
         feedback.setAttribute("class", "feedback");
         setTimeout(function(){
             feedback.setAttribute("class", "feedback hide");
@@ -99,13 +98,14 @@ function answerClick (){
     
 }
 
+
 // Function to end the quiz
 function endQuiz(){
     clearInterval(timer);
     questionScrn.classList.add("hide");
     endScreen.classList.remove("hide");
     showFeedback("");
-    finalScore.innerText = score;
+    finalScore.textContent = score;
 }
 
 // Function to show feedback after each question
@@ -114,11 +114,30 @@ function showFeedback(message){
     feedback.innerText = message;
 }
 
-// Add event listener to the submit button to save user initials and score, and redirect to highscores page
-submitBtn.addEventListener("click", function(){
-    const userInitial = document.getElementById("initials").value;
-    localStorage.setItem("initial", userInitial);
-    localStorage.setItem("score", score);
-    location.href = "highscores.html";
-});
+// Function to save user initials and score to local storage
+function saveScore(){
+    var userInitials = initials.value.trim();
+    if (userInitials !== ""){
+        var highScores = JSON.parse(window.localStorage.getItem("highScores")) || [];
+        var newScore = {
+            score: score,
+            initials: userInitials
+        };
+        // push new score to high scores array
+        highScores.push(newScore);
+        // sort high scores in descending order
+        highScores.sort(function(a, b){
+            return b.score - a.score
+        });
+        // cut off scores after 5
+        highScores.splice(5);
+        // save to local storage
+        window.localStorage.setItem("highScores", JSON.stringify(highScores));
+        // redirect to high scores page
+        window.location.href = "./highscores.html";
+    }
+}
+
+// event listener for submit button
+submitBtn.addEventListener("click", saveScore);
 
