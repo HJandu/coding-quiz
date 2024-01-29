@@ -6,6 +6,7 @@ var startScrn = document.querySelector("#start-screen");
 var indexQues = 0; 
 var timeLeft = 60;
 var timeInterval;
+var score = 0;
 var questionTitle = document.querySelector("#question-title");
 var choicesDiv = document.querySelector("#choices");
 var feedback = document.querySelector("#feedback");
@@ -15,6 +16,12 @@ var highscores = document.querySelector("#highscores");
 var clearBtn = document.querySelector("#clear");
 var goBackBtn = document.querySelector("#go-back");
 var viewHighscores = document.querySelector("#view-highscores");
+var endScreen = document.querySelector("#end-screen");
+var finalScore = document.querySelector("#final-score");
+
+
+
+
 
 // audio for correct answer
 var correctAudio = new Audio("assets/sfx/correct.wav");
@@ -60,12 +67,6 @@ function displayQues (){
 }
 
 
-// function to display name and score into highscore.js page
-function leaderBoard (){
-
-}
-
-
 // function to check if answer is correct
 function answerClick (){
     if (this.value !== quizQuestions[indexQues].correctAnswer){
@@ -79,81 +80,45 @@ function answerClick (){
         }, 1000);
     }else{
         correctAudio.play();
+        score++;
         feedback.textContent = "Correct!";
         feedback.setAttribute("class", "feedback");
         setTimeout(function(){
             feedback.setAttribute("class", "feedback hide");
         }, 1000);
     }
+   
+
     indexQues++;
-    if (indexQues === quizQuestions.length){
-        leaderBoard();
-    } else {
+
+    if (indexQues < quizQuestions.length){
         displayQues();
+    } else {
+        endQuiz();
     }
+    
 }
 
-
-
-// function to display highscores
-function displayHighscores (){
-    var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
-    highscores.forEach(function(score){
-        var liTag = document.createElement("li");
-        liTag.textContent = score.initials + " - " + score.score;
-        var olEl = document.getElementById("highscores");
-        olEl.appendChild(liTag);
-    });
-
-}
-
-// function to clear highscores
-function clearHighscores (){
-    window.localStorage.removeItem("highscores");
-    window.location.reload();
-}
-
-// function to go back to start screen
-function goBack (){
-    window.location.reload();
-}
-
-// function to view highscores
-function viewHighscores (){
-    var highscores = document.querySelector("#highscores");
-    highscores.classList.remove("hide");
-    startScrn.classList.add("hide");
+// Function to end the quiz
+function endQuiz(){
+    clearInterval(timer);
     questionScrn.classList.add("hide");
-    displayHighscores();
+    endScreen.classList.remove("hide");
+    showFeedback("");
+    finalScore.innerText = score;
 }
 
-// function to save highscores
-function saveHighscores (){
-    var initials = document.querySelector("#initials").value.trim();
-    if (initials !== ""){
-        var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
-        var newScore = {
-            score: timeLeft,
-            initials: initials
-        };
-        highscores.push(newScore);
-        window.localStorage.setItem("highscores", JSON.stringify(highscores));
-        window.location.href = "highscores.html";
-    }
+// Function to show feedback after each question
+function showFeedback(message){
+    feedback.classList.remove('hide');
+    feedback.innerText = message;
 }
 
-// event listeners for buttons
-// submitBtn.addEventListener("click", saveHighscores);
-// clearBtn.addEventListener("click", clearHighscores);
+// Add event listener to the submit button to save user initials and score, and redirect to highscores page
+submitBtn.addEventListener("click", function(){
+    const userInitial = document.getElementById("initials").value;
+    localStorage.setItem("initial", userInitial);
+    localStorage.setItem("score", score);
+    location.href = "highscores.html";
+});
 
-// goBackBtn.addEventListener("click", goBack);
-// viewHighscores.addEventListener("click", viewHighscores);
-
-
-// Questions contain buttons for each answer.
-// When answer is clicked, the next question appears
-// running the  timer is needed
-// go back button
-// clear highscores button
-// view highscores button
-// highscores page
