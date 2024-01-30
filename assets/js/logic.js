@@ -72,7 +72,7 @@ function answerClick (){
         timeLeft -= 10;
         timer.textContent = timeLeft;
         wrongAudio.play();
-        feedback.textContent = "Wrong! 5 seconds deducted from timer.";
+        feedback.textContent = "Wrong! 10 seconds deducted from timer.";
         feedback.setAttribute("class", "feedback");
         setTimeout(function(){
             feedback.setAttribute("class", "feedback hide");
@@ -101,9 +101,12 @@ function answerClick (){
 
 // Function to end the quiz
 function endQuiz(){
+    // stop timer
     clearInterval(timer);
+    // show end screen
     questionScrn.classList.add("hide");
     endScreen.classList.remove("hide");
+    // show final score
     showFeedback("");
     finalScore.textContent = score;
 }

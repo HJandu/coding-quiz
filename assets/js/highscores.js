@@ -1,6 +1,6 @@
 var clearBtn = document.querySelector("#clear");
 
-// function to display the last 5 highscores from local storage on the highscores page in descending order
+// function to display the last 5 highscores from local storage onto the highscores page in descending order
 function displayHighScores() {
     var highScores = JSON.parse(window.localStorage.getItem("highScores"));
     highScores.sort(function (a, b) {
