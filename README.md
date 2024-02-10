@@ -4,6 +4,11 @@
   <img width="100%" height="400" src="https://github.com/HJandu/coding-quiz/blob/main/assets/images/main_page.jpg">
 </p>
 
+## Deployment
+### Do you think you are brave enough to take the quiz? If so, then click [here](https://hjandu.github.io/coding-quiz/).
+<br> 
+<br>
+
 ## Background
 
 As I proceed in my journey to becoming a front-end web developer, it’s likely that I will be asked to complete a coding assessment, perhaps as part of an interview process. A typical coding assessment is a combination of multiple-choice questions and interactive coding challenges. 
@@ -23,17 +28,17 @@ The coding quiz features the following:
     
   * When the answer is clicked, the next question appears.<br>
 
-  <img width="70%" height="300" src="https://github.com/HJandu/coding-quiz/blob/main/assets/images/correct_ans.jpg">
+  <img width="90%" height="300" src="https://github.com/HJandu/coding-quiz/blob/main/assets/images/correct_ans.jpg">
  
     
   * If the answer clicked is incorrect then 10 minuntes are subtracted from the clock.
     
-  <img width="70%" height="300" src="https://github.com/HJandu/coding-quiz/blob/main/assets/images/wrong_ans.jpg">
+  <img width="90%" height="300" src="https://github.com/HJandu/coding-quiz/blob/main/assets/images/wrong_ans.jpg">
 
     
   * You will hear different sounds depending on whether your answer is right or wrong.
  
-  <img width="70%" height="300" src="https://github.com/HJandu/coding-quiz/blob/main/assets/images/sound_files.jpg">
+  <img width="90%" height="300" src="https://github.com/HJandu/coding-quiz/blob/main/assets/images/sound_files.jpg">
 
 
   * The quiz ends when all questions are answered or the timer reaches 0.
@@ -44,23 +49,17 @@ The coding quiz features the following:
 
 * Name or initials and score is saved in local storage as an array.
   
- <img width="70%" height="300" src="https://github.com/HJandu/coding-quiz/blob/main/assets/images/score_localstorage.jpg">
+ <img width="90%" height="300" src="https://github.com/HJandu/coding-quiz/blob/main/assets/images/score_localstorage.jpg">
 
  <img width="90%" height="50" src="https://github.com/HJandu/coding-quiz/blob/main/assets/images/score_json.jpg">
 
  * Top 5 highest scores can be viewed.
 
- <img width="70%" height="300" src="https://github.com/HJandu/coding-quiz/blob/main/assets/images/display_highscore.jpg">
+ <img width="90%" height="300" src="https://github.com/HJandu/coding-quiz/blob/main/assets/images/display_highscore.jpg">
 
  * You have the option to clear the high scores board. However, before the scores are cleared, the user is asked if they are sure they would like to clear the scores.
 
- <img width="70%" height="300" src="https://github.com/HJandu/coding-quiz/blob/main/assets/images/clear_prompt.jpg">
+ <img width="90%" height="300" src="https://github.com/HJandu/coding-quiz/blob/main/assets/images/clear_prompt.jpg">
 
-  
-## Quick preview of the code
-
-
-
-### Deployment:
-
-&copy;Hardip Jandu
+## License
+Licensed by MIT License. &copy;Hardip Jandu
